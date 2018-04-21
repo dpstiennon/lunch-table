@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import {Route} from 'react-router-dom'
 import './App.css';
+import Classroom from './components/Classroom'
+import LayoutSelector from './components/LayoutSelector'
 
 class App extends Component {
   render() {
@@ -15,10 +16,11 @@ class App extends Component {
             <h1>Login</h1>
           </div>
         }/>
+        <Route path="/teacher" exact render={() =>
+          <LayoutSelector/>
+        }/>
         <Route path="/teacher/students" exact render={() =>
-          <div>
-            <h1>This is a page to input your classroom</h1>
-          </div>
+          <Classroom />
         }/>
         <Route path="/teacher/tables" exact render={() =>
           <div>
