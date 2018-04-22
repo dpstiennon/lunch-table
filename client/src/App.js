@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Route} from 'react-router-dom'
 import './App.css';
 import Classroom from './components/Classroom'
-import LayoutSelector from './components/LayoutSelector'
+import TeacherOverview from './components/TeacherOverview'
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
           </div>
         }/>
         <Route path="/teacher" exact render={() =>
-          <LayoutSelector/>
+          <TeacherOverview/>
         }/>
         <Route path="/teacher/students" exact render={() =>
           <Classroom />
