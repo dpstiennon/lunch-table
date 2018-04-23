@@ -22,6 +22,26 @@
   font-size: large;
 }
 
+.layouts {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.teacherHeader {
+  display: block;
+  width: 100%
+}
+
+.layout {
+  margin: 10px 10px 10px 10px;
+  background-color: blue;
+  display: block;
+  flex: 0 1 auto;
+  width: 150px;
+  height: 100px;
+
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
