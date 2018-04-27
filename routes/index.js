@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const database = require('../db/dbConfig')
 
 // Do work here
 router.get('/', (req, res) => {
@@ -24,6 +25,11 @@ router.get('/api/teacher/:id', (req, res) => {
       },
     ]
   })
+})
+
+router.get('/api/things', async (req, res) => {
+  const result = await database.database()
+  res.send(result)
 })
 
 module.exports = router;

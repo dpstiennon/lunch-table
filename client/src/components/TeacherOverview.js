@@ -5,30 +5,21 @@ export default class TeacherOverview extends Component {
   constructor () {
     super()
     this.teacherName = 'Amy Stiennon'
-    this.layouts = [
-      {
-        name: '5th grade class',
-        id: '123'
-      },
-      {
-        name: '6th grade class',
-        id: '456'
-      },
-      {
-        name: 'The ones who always misbehave',
-        id: '789'
-      },
-    ]
+    this.state = {
+      layouts: []
+    }
   }
 
   componentDidMount(){
     fetch('/api/teacher/3')
-      .then(async (resp) => {
-        console.warn(await resp.json())
+      .then(resp => resp.json())
+      .then(json => {
+        console.warn(json)
+        this.setState({layouts: json.layouts})
       })
   }
 
   render () {
-    return <LayoutSelector teacherName={this.teacherName} layouts={this.layouts} />
+    return <LayoutSelector teacherName={this.teacherName} layouts={this.state.layouts} />
   }
 }
