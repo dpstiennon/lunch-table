@@ -21,6 +21,13 @@ export default class TeacherOverview extends Component {
     ]
   }
 
+  componentDidMount(){
+    fetch('/api/teacher/3')
+      .then(async (resp) => {
+        console.warn(await resp.json())
+      })
+  }
+
   render () {
     return <LayoutSelector teacherName={this.teacherName} layouts={this.layouts} />
   }
