@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('tables', '', '', {
+const sequelize = new Sequelize('tables', 'root', '', {
   host: 'localhost',
   dialect: 'sqlite',
   operatorsAliases: false,
@@ -14,18 +14,36 @@ const sequelize = new Sequelize('tables', '', '', {
   storage: './tables.db'
 });
 
+const Layout = sequelize.define('layout', {
+  name: {
+    type: Sequelize.STRING,
+    required: true
+  },
+  teacherId: {
+    type: Sequelize.UUID
+  },
+  id: {
+    type: Sequelize.UUID,
+    primaryKey: true,
+    defaultValue: Sequelize.UUIDV4
+  }
+}, {timestamps: true, force:true});
+sequelize.sync()
 
-exports.database = async () => {
-  let result = ''
-  await sequelize
-    .authenticate()
-    .then(() => {
-      result = 'dude, it worked!'
-      console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-      console.error('Unable to connect to the database:', err);
-    });
-  return result
+exports = {
+  sequelize: sequelize,
+  Layout: Layout
 }
+
+//
+// exports.database = async () => {
+//   return await sequelize
+//     .authenticate()
+//     .then(() => {
+//       console.log('Connection has been established successfully.');
+//     })
+//     .catch(err => {
+//       console.error('Unable to connect to the database:', err);
+//     });
+// }
 
