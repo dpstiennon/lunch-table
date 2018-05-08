@@ -4,3 +4,4 @@ npm-debug.log
 client/build
 .idea
 *.db
+yarn-error.log
