@@ -11,6 +11,13 @@ class LayoutSelector extends Component {
     alert(id)
   }
 
+  handleSubmit(){
+    const newLayoutName = this.newLayoutName.current
+    alert(newLayoutName)
+    this.setState({ modalOpen: false })
+    this.props.createNewLayout(this.props.teacherName, newLayoutName)
+  }
+
   render () {
     const {teacherName, layouts} = this.props
     return <div className="layouts">
@@ -30,10 +37,18 @@ class LayoutSelector extends Component {
       </div>
       <ReactModal isOpen={this.state.modalOpen}
                   contentLabel="Add a new class layout"
+                  className="new-layout-modal"
                   shouldCloseOnOverlayClick={true}
                   shouldCloseOnEsc={true}
       >
-        Arble Bargle
+        <div className="modal-content">
+          <label htmlFor="name">Layout Name</label>
+          <input name="name" type="text" ref={t => this.newLayoutName = t}/>
+          <button onClick={this.handleSubmit.bind(this)}>
+            Create new LAyout
+          </button>
+        </div>
+
       </ReactModal>
     </div>
   }

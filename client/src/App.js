@@ -3,6 +3,9 @@ import {Route} from 'react-router-dom'
 import './App.css';
 import Classroom from './components/Classroom'
 import TeacherOverview from './components/TeacherOverview'
+import LoginScreen from './components-presentation/LoginScreen'
+import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap-theme.css';
 
 class App extends Component {
   render() {
@@ -12,9 +15,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to Tablr</h1>
         </header>
         <Route path="/" exact render={() =>
-          <div>
-            <h1>Login</h1>
-          </div>
+          <LoginScreen/>
         }/>
         <Route path="/teacher" exact render={() =>
           <TeacherOverview/>

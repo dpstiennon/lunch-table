@@ -19,6 +19,10 @@ export default class TeacherOverview extends Component {
       })
   }
 
+  createNewLayout(teacherId, layoutName){
+    fetch('/api')
+  }
+
   render () {
     return <LayoutSelector teacherName={this.teacherName} layouts={this.state.layouts} />
   }
