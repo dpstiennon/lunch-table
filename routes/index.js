@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/dbConfig')
+const model = require('../db')
 
 // Do work here
 router.get('/', (req, res) => {
@@ -27,9 +27,10 @@ router.get('/api/teacher/:id', (req, res) => {
   })
 })
 
-router.get('/api/things', async (req, res) => {
-  db.Layout.create({
-    name: 'Dude Dudesworth'
+router.post('/api/layouts/', async (req, res) => {
+  model.layout.create({
+    name: req.body.name,
+    teacherId: req.body.teacherId
   }).then(created => {
     res.json(created)
   })

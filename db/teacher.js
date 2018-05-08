@@ -1,11 +1,17 @@
 module.exports = function(sequelize, DataTypes) {
-  const Layout = sequelize.define('layout', {
-    name: {
+  const Teacher = sequelize.define('teacher', {
+    firstName: {
       type: DataTypes.STRING,
       required: true
     },
-    teacherId: {
-      type: DataTypes.UUID
+    lastName: {
+      type: DataTypes.STRING,
+      required: true
+    },
+    username: {
+      type: DataTypes.STRING,
+      required: true,
+      unique: true
     },
     id: {
       type: DataTypes.UUID,
@@ -13,5 +19,5 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: DataTypes.UUIDV4
     }
   }, {timestamps: true});
-  return Layout;
+  return Teacher;
 };
