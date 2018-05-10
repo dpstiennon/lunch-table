@@ -20,7 +20,8 @@ export default class TeacherOverview extends Component {
   }
 
   createNewLayout(teacherId, layoutName){
-    fetch('/api')
+    fetch('/api/layouts', {method: 'POST', data: {teacherId, name: layoutName}})
+      .then()
   }
 
   render () {

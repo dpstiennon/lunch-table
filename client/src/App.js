@@ -5,6 +5,7 @@ import Classroom from './components/Classroom'
 import TeacherOverview from './components/TeacherOverview'
 import LoginScreen from './components-presentation/LoginScreen'
 import 'bootstrap/dist/css/bootstrap.css';
+import LoginContainer from './components/LoginContainer'
 // import 'bootstrap/dist/css/bootstrap-theme.css';
 
 class App extends Component {
@@ -15,7 +16,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to Tablr</h1>
         </header>
         <Route path="/" exact render={() =>
-          <LoginScreen/>
+          <LoginContainer/>
         }/>
         <Route path="/teacher" exact render={() =>
           <TeacherOverview/>
