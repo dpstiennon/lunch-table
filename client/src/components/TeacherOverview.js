@@ -1,30 +1,50 @@
 import React, { Component } from 'react'
 import LayoutSelector from '../components-presentation/LayoutSelector'
+import {connect} from 'react-redux'
 
-export default class TeacherOverview extends Component {
-  constructor () {
-    super()
-    this.teacherName = 'Amy Stiennon'
+class TeacherOverview extends Component {
+  constructor (props) {
+    super(props)
     this.state = {
       layouts: []
     }
   }
 
   componentDidMount(){
-    fetch('/api/teacher/3')
+    fetch(`/api/layouts?teacher_id=${this.props.teacher.id}`)
       .then(resp => resp.json())
-      .then(json => {
-        console.warn(json)
-        this.setState({layouts: json.layouts})
+      .then(data => {
+        console.warn(data)
+        this.setState({layouts: data})
       })
   }
 
-  createNewLayout(teacherId, layoutName){
-    fetch('/api/layouts', {method: 'POST', data: {teacherId, name: layoutName}})
-      .then()
+  createNewLayout(layoutName){
+    fetch('/api/layouts', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({teacherId: this.props.teacher.id, name: layoutName})
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data)
+      })
   }
 
   render () {
-    return <LayoutSelector teacherName={this.teacherName} layouts={this.state.layouts} />
+    return <LayoutSelector
+      teacherName={this.teacherName}
+      layouts={this.state.layouts}
+      createNewLayout = { this.createNewLayout.bind(this) }
+      />
   }
 }
+
+const mapStateToProps = (state) => ({
+  teacher: state.teacher,
+  layouts: state.layouts
+})
+
+export default connect(mapStateToProps)(TeacherOverview)

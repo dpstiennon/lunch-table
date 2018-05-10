@@ -33,13 +33,19 @@ router.post('/api/login', async(req, res) => {
   res.json(teacher)
 })
 
+router.get('/api/layouts', async (req, res) =>{
+  let layouts = await model.layout.findAll({
+    where: {teacherId: req.query.teacher_id}
+  })
+  res.json(layouts)
+})
+
 router.post('/api/layouts', async (req, res) => {
-  model.layout.create({
+  let newLayout = await model.layout.create({
     name: req.body.name,
     teacherId: req.body.teacherId
-  }).then(created => {
-    res.json(created)
   })
+  res.json(newLayout)
 })
 
 module.exports = router;

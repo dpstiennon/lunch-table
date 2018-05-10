@@ -12,10 +12,9 @@ class LayoutSelector extends Component {
   }
 
   handleSubmit(){
-    const newLayoutName = this.newLayoutName.current
-    alert(newLayoutName)
+    const newLayoutName = this.newLayoutName.value
     this.setState({ modalOpen: false })
-    this.props.createNewLayout(this.props.teacherName, newLayoutName)
+    this.props.createNewLayout(newLayoutName)
   }
 
   render () {
@@ -45,7 +44,7 @@ class LayoutSelector extends Component {
           <label htmlFor="name">Layout Name</label>
           <input name="name" type="text" ref={t => this.newLayoutName = t}/>
           <button onClick={this.handleSubmit.bind(this)}>
-            Create new LAyout
+            Create new Layout
           </button>
         </div>
 
