@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 
 const LoginScreen = (props) => {
   let passwordElem = {}
+  let usernameElem = {}
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.login(passwordElem.value)
+    props.login(usernameElem.value, passwordElem.value)
   }
 
 
@@ -16,10 +17,14 @@ const LoginScreen = (props) => {
           <h3>Teacher Login</h3>
           <div className="form-group">
             <label htmlFor="username">Username</label>
-            <input type="text" className="form-control form-control-lg" id="username"/>
+            <input type="text"
+                   className="form-control form-control-lg"
+                   id="username"
+                   ref={(e) => usernameElem = e}
+            />
           </div>
           <div className="form-group">
-            <label htmlFor="username">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password"
                    className="form-control form-control-lg"
                    id="password"

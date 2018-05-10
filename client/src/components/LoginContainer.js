@@ -11,7 +11,10 @@ class LoginContainer extends Component {
   doLoginThing(username, password) {
     fetch('/api/login', {
       method: 'POST',
-      body: JSON.stringify({username, password})
+      body: JSON.stringify({username, password}),
+      headers: {
+        'content-type': 'application/json'
+      },
     }).then((result) => {
       return result.json()
     }).then((body) => {

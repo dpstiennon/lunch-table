@@ -18,6 +18,6 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     }
-  }, {timestamps: true, force: true});
+  }, {timestamps: true});
   return Teacher;
 };

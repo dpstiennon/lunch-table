@@ -4,7 +4,6 @@ const model = require('../db')
 
 // Do work here
 router.get('/', (req, res) => {
-  console.log('Its in here')
   res.send('Hey! It works!');
 });
 
@@ -28,16 +27,10 @@ router.get('/api/teacher/:id', (req, res) => {
 })
 
 router.post('/api/login', async(req, res) => {
-  let teacher = await model.teacher.find({
-    where: {username: req.username}
+  let teacher = await model.teacher.findOne({
+    where: {username: req.body.username}
   })
   res.json(teacher)
-  // res.json({
-  //   id: 'abc',
-  //   firstName: 'Amy',
-  //   lastName: 'Stiennon',
-  //   username: 'astiennon'
-  // })
 })
 
 router.post('/api/layouts', async (req, res) => {
