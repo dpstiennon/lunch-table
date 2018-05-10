@@ -27,7 +27,20 @@ router.get('/api/teacher/:id', (req, res) => {
   })
 })
 
-router.post('/api/layouts/', async (req, res) => {
+router.post('/api/login', async(req, res) => {
+  let teacher = await model.teacher.find({
+    where: {username: req.username}
+  })
+  res.json(teacher)
+  // res.json({
+  //   id: 'abc',
+  //   firstName: 'Amy',
+  //   lastName: 'Stiennon',
+  //   username: 'astiennon'
+  // })
+})
+
+router.post('/api/layouts', async (req, res) => {
   model.layout.create({
     name: req.body.name,
     teacherId: req.body.teacherId
