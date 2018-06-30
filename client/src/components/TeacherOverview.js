@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import LayoutSelector from '../components-presentation/LayoutSelector'
 import {connect} from 'react-redux'
+import { setLayouts } from '../state/actions'
 
 class TeacherOverview extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      layouts: []
-    }
-  }
 
   componentDidMount(){
+    this.fetchLayouts()
+  }
+
+  fetchLayouts() {
     fetch(`/api/layouts?teacher_id=${this.props.teacher.id}`)
       .then(resp => resp.json())
       .then(data => {
-        console.warn(data)
-        this.setState({layouts: data})
+        this.props.dispatch(setLayouts(data))
       })
   }
 
@@ -27,16 +25,16 @@ class TeacherOverview extends Component {
       },
       body: JSON.stringify({teacherId: this.props.teacher.id, name: layoutName})
     })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data)
+      .then(() => {
+        this.fetchLayouts()
       })
   }
 
   render () {
+    const {teacher, layouts} = this.props
     return <LayoutSelector
-      teacherName={this.teacherName}
-      layouts={this.state.layouts}
+      teacherName={teacher.name}
+      layouts={layouts}
       createNewLayout = { this.createNewLayout.bind(this) }
       />
   }

@@ -1,9 +1,16 @@
-import { SET_TEACHER_LOGIN } from './constants'
+import { SET_LAYOUTS, SET_TEACHER_LOGIN } from './constants'
 
-const reducer = (state = {}, action) => {
+const defaultState = {
+  teacher: {},
+  layouts: []
+}
+
+const reducer = (state = defaultState, action) => {
   switch(action.type){
     case SET_TEACHER_LOGIN:
       return {...state, teacher: action.teacher}
+    case SET_LAYOUTS:
+      return {...state, layouts: action.layouts}
     default:
       return state
   }

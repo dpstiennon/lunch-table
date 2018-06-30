@@ -3,7 +3,6 @@ import {Route} from 'react-router-dom'
 import './App.css';
 import Classroom from './components/Classroom'
 import TeacherOverview from './components/TeacherOverview'
-import LoginScreen from './components-presentation/LoginScreen'
 import 'bootstrap/dist/css/bootstrap.css';
 import LoginContainer from './components/LoginContainer'
 // import 'bootstrap/dist/css/bootstrap-theme.css';
