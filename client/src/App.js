@@ -5,6 +5,8 @@ import Classroom from './components/Classroom'
 import TeacherOverview from './components/TeacherOverview'
 import 'bootstrap/dist/css/bootstrap.css';
 import LoginContainer from './components/LoginContainer'
+import StudentManagerLink from './components-presentation/StudentManagerLink'
+import StudentManager from './components/StudentManager'
 // import 'bootstrap/dist/css/bootstrap-theme.css';
 
 class App extends Component {
@@ -17,9 +19,9 @@ class App extends Component {
         <Route path="/" exact render={() =>
           <LoginContainer/>
         }/>
-        <Route path="/teacher" exact render={() =>
-          <TeacherOverview/>
-        }/>
+        <Route path="/teacher" render={() => <StudentManagerLink /> } />
+        <Route path="/teacher" exact render={() => <TeacherOverview/> }/>
+        <Route path="/student-manager" exact render={() => <StudentManager/>} />
         <Route path="/teacher/students" exact render={() =>
           <Classroom />
         }/>
