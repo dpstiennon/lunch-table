@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import AddStudentForm from './AddStudentForm'
 
 class StudentManagerPage extends Component {
 
@@ -8,9 +9,9 @@ class StudentManagerPage extends Component {
 
   render() {
     const {students} = this.props
-    return <div>
+    return <div className="container">
       <h3>Add a new student</h3>
-      {/*<AddStudentForm/>*/}
+      <AddStudentForm/>
       {students.map(student => <div>
         <span>{this.fullName(student)}</span>
         <span>
