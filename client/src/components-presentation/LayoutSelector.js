@@ -1,44 +1,79 @@
 import React, { Component } from 'react'
-import ReactModal from 'react-modal'
+import Modal from '@material-ui/core/Modal'
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  layout: {
+    margin: '10px 10px 10px 10px',
+    padding: '0px 10px',
+    backgroundColor: '#4b9bd9',
+    display: 'block',
+    flex: '0 1 auto',
+    minWidth: 150,
+    height: 100,
+    borderRadius: '5px',
+    textAlign: 'center',
+    cursor: 'pointer'
+  },
+  centeredText: {
+    position: 'relative',
+    top: '50%',
+    transform: 'translateY(-50%)'
+  }
+}
 
 class LayoutSelector extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
-    this.state = { modalOpen: false }
+    this.state = {modalOpen: false}
   }
 
-  navigateAway(id){
+  navigateAway (id) {
     alert(id)
   }
 
-  handleSubmit(){
+  handleSubmit () {
     const newLayoutName = this.newLayoutName.value
-    this.setState({ modalOpen: false })
+    this.setState({modalOpen: false})
     this.props.createNewLayout(newLayoutName)
   }
 
+  handleClose = () => {
+    this.setState({modalOpen: false})
+  }
+
+  getModalStyle = () => {
+    const top = 50
+    const left = 50
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    }
+  }
+
   render () {
-    const {teacherName, layouts} = this.props
+    const {teacherName, layouts, classes} = this.props
     return <div className="layouts">
       <div className="teacherHeader">
         <h1>{teacherName}</h1>
       </div>
       <div className="layouts">
         {layouts.map((layout) =>
-          <div className="layout"
+          <div className={classes.layout}
                onClick={() => this.navigateAway(layout.id)}>
-            <h3>{layout.name}</h3>
+            <h3 className={[classes.centeredText, 'dude'].join(' ')}>{layout.name}</h3>
           </div>)}
-        <div className="layout"
+        <div className={classes.layout}
              onClick={() => this.setState({modalOpen: true})}>
-          +
+          <h3 className={[classes.centeredText, 'dude'].join(' ')}>+</h3>
         </div>
       </div>
-      <ReactModal isOpen={this.state.modalOpen}
-                  contentLabel="Add a new class layout"
-                  className="new-layout-modal"
-                  shouldCloseOnOverlayClick={true}
-                  shouldCloseOnEsc={true}
+      <Modal open={this.state.modalOpen}
+             style={this.getModalStyle()}
+             onClose={this.handleClose}
+             contentLabel="Add a new class layout"
+             className="new-layout-modal"
       >
         <div className="modal-content">
           <label htmlFor="name">Layout Name</label>
@@ -47,11 +82,10 @@ class LayoutSelector extends Component {
             Create new Layout
           </button>
         </div>
-
-      </ReactModal>
+      </Modal>
     </div>
   }
 
 }
 
-export default LayoutSelector
+export default withStyles(styles)(LayoutSelector)

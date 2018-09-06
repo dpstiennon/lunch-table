@@ -32,15 +32,7 @@
   width: 100%
 }
 
-.layout {
-  margin: 10px 10px 10px 10px;
-  background-color: blue;
-  display: block;
-  flex: 0 1 auto;
-  width: 150px;
-  height: 100px;
 
-}
 
 .new-layout-modal {
   display: flex;
