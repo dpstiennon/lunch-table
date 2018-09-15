@@ -7,37 +7,14 @@ import Radio from '@material-ui/core/Radio'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { withStyles } from '@material-ui/core/styles'
 
-const styles = (theme) => {
-  return {
-    newStudentForm: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap'
-    },
-    formControl: {
-      flex: '1 1 160px',
-      padding: 20,
-      marginTop: 16,
-      borderWidth: 2,
-      borderColor: 'black',
-      borderRadius: 5
-    },
-    boySwitch: {
-      backgroundColor: theme.palette.primary.main
-    },
-    girlSwitch: {
-      backgroundColor: theme.palette.secondary.main
-    }
-  }
-}
-
 class AddStudentForm extends Component {
   constructor () {
     super()
     this.state = {
-      peanut: '',
+      peanut: 0,
       birthDate: '',
       firstName: '',
+      lastName: '',
       boyGirl: 0
     }
   }
@@ -50,10 +27,22 @@ class AddStudentForm extends Component {
 
   updateSwitch = e => this.setState({boyGirl: e.target.checked})
 
+  isFilled = (state) => {
+    return state.peanut && state.birthDate && state.firstName && state.lastName
+  }
+
+  handleSubmit = (e) => {
+    if (this.isFilled(this.state)) {
+      this.props.createStudent(this.state)
+    } else {
+      e.preventDefault()
+    }
+  }
+
   render () {
-    const {createStudent, classes} = this.props
+    const {classes} = this.props
     const {birthDate, peanut, firstName, lastName, boyGirl} = this.state
-    return <form onSubmit={createStudent}>
+    return <form onSubmit={this.handleSubmit}>
       <div className={classes.newStudentForm}>
         <div className={classes.formControl}>
           <TextField
@@ -73,17 +62,19 @@ class AddStudentForm extends Component {
         </div>
 
         <div className={classes.formControl}>
-          <label htmlFor="boyGirl">Boy</label>
-          <Switch name="boyGirl"
-                  classes={{
-                    icon: classes.boySwitch,
-                    bar: boyGirl ? classes.girlSwitch : classes.boySwitch,
-                    iconChecked: classes.girlSwitch
-                  }}
-                  checked={boyGirl}
-                  onChange={this.updateSwitch}
-                  color="secondary"/>
-          <label htmlFor="boyGirl">Girl</label>
+          <div className={classes.switchWrapper}>
+            <label htmlFor="boyGirl">Boy</label>
+            <Switch name="boyGirl"
+                    classes={{
+                      icon: classes.boySwitch,
+                      bar: boyGirl ? classes.girlSwitch : classes.boySwitch,
+                      iconChecked: classes.girlSwitch
+                    }}
+                    checked={boyGirl}
+                    onChange={this.updateSwitch}
+                    color="secondary"/>
+            <label htmlFor="boyGirl">Girl</label>
+          </div>
         </div>
         <div className={classes.formControl}>
           <TextField
@@ -91,6 +82,7 @@ class AddStudentForm extends Component {
             value={birthDate}
             type="date"
             label="Birth Date"
+            margin="normal"
             InputLabelProps={{
               shrink: true,
             }}
@@ -108,6 +100,33 @@ class AddStudentForm extends Component {
           Create
       </Button>
     </form>
+  }
+}
+
+
+const styles = (theme) => {
+  return {
+    newStudentForm: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap'
+    },
+    formControl: {
+      flex: '1 1 160px',
+      padding: 20,
+      borderWidth: 2,
+      borderColor: 'black',
+      borderRadius: 5
+    },
+    switchWrapper: {
+      marginTop: 25
+    },
+    boySwitch: {
+      backgroundColor: theme.palette.primary.main
+    },
+    girlSwitch: {
+      backgroundColor: theme.palette.secondary.main
+    }
   }
 }
 

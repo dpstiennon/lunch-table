@@ -13,8 +13,15 @@ class StudentManager extends Component {
     }
   }
 
-  async addStudent() {
-
+  addStudent = async (newStudent) => {
+    const resp = await fetch('/api/students', {
+      method: 'POST',
+      body: newStudent
+    })
+    if(resp.ok) {
+      const data = await resp.json()
+      this.props.dispatch(setStudents(data))
+    }
   }
 
   componentDidMount() {
@@ -22,7 +29,7 @@ class StudentManager extends Component {
   }
 
   render() {
-    return <StudentManagerPage students={this.props.students}/>
+    return <StudentManagerPage students={this.props.students} addStudent={this.addStudent}/>
   }
 }
 

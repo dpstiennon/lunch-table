@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       required: true,
     },
     boyOrGirl: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       required: true
     },
     peanuts: {

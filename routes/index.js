@@ -48,4 +48,9 @@ router.post('/api/layouts', async (req, res) => {
   res.json(newLayout)
 })
 
+router.post('/api/students', async (req, res) => {
+  console.log(req.body)
+  res.send('Student Created')
+})
+
 module.exports = router;

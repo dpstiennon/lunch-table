@@ -8,10 +8,10 @@ class StudentManagerPage extends Component {
   }
 
   render() {
-    const {students} = this.props
+    const {students, addStudent} = this.props
     return <div className="container">
       <h3>Add a new student</h3>
-      <AddStudentForm/>
+      <AddStudentForm createStudent={addStudent}/>
       {students.map(student => <div>
         <span>{this.fullName(student)}</span>
         <span>
