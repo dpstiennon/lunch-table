@@ -16,7 +16,10 @@ class StudentManager extends Component {
   addStudent = async (newStudent) => {
     const resp = await fetch('/api/students', {
       method: 'POST',
-      body: newStudent
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(newStudent)
     })
     if(resp.ok) {
       const data = await resp.json()

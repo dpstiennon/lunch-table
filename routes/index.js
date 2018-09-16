@@ -7,6 +7,15 @@ router.get('/', (req, res) => {
   res.send('Hey! It works!');
 });
 
+router.get('/api/makeTeacher/:username/:first/:last', async (req, res) => {
+  let teacher = await model.teacher.create({
+    username: req.params.username,
+    firstName: req.params.first,
+    lastName: req.params.last
+  })
+  res.json(teacher)
+})
+
 router.get('/api/teacher/:id', (req, res) => {
   res.json({
     layouts: [
@@ -49,8 +58,14 @@ router.post('/api/layouts', async (req, res) => {
 })
 
 router.post('/api/students', async (req, res) => {
-  console.log(req.body)
-  res.send('Student Created')
+  const student = req.body
+  let newStudent = await model.student.create(student)
+  res.json(newStudent)
+})
+
+router.get('/api/students', async (req, res) => {
+  const students = await model.student.findAll()
+  res.json(students || [])
 })
 
 module.exports = router;

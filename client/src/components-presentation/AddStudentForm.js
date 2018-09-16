@@ -11,11 +11,11 @@ class AddStudentForm extends Component {
   constructor () {
     super()
     this.state = {
-      peanut: 0,
+      peanut: 'peanut',
       birthDate: '',
       firstName: '',
       lastName: '',
-      boyGirl: 0
+      boyOrGirl: false
     }
   }
 
@@ -25,7 +25,7 @@ class AddStudentForm extends Component {
     }
   }
 
-  updateSwitch = e => this.setState({boyGirl: e.target.checked})
+  updateSwitch = e => this.setState({boyOrGirl: e.target.checked})
 
   isFilled = (state) => {
     return state.peanut && state.birthDate && state.firstName && state.lastName
@@ -41,7 +41,7 @@ class AddStudentForm extends Component {
 
   render () {
     const {classes} = this.props
-    const {birthDate, peanut, firstName, lastName, boyGirl} = this.state
+    const {birthDate, peanut, firstName, lastName, boyOrGirl} = this.state
     return <form onSubmit={this.handleSubmit}>
       <div className={classes.newStudentForm}>
         <div className={classes.formControl}>
@@ -63,17 +63,17 @@ class AddStudentForm extends Component {
 
         <div className={classes.formControl}>
           <div className={classes.switchWrapper}>
-            <label htmlFor="boyGirl">Boy</label>
-            <Switch name="boyGirl"
+            <label htmlFor="boyOrGirl">Boy</label>
+            <Switch name="boyOrGirl"
                     classes={{
                       icon: classes.boySwitch,
-                      bar: boyGirl ? classes.girlSwitch : classes.boySwitch,
+                      bar: boyOrGirl ? classes.girlSwitch : classes.boySwitch,
                       iconChecked: classes.girlSwitch
                     }}
-                    checked={boyGirl}
+                    checked={boyOrGirl}
                     onChange={this.updateSwitch}
                     color="secondary"/>
-            <label htmlFor="boyGirl">Girl</label>
+            <label htmlFor="boyOrGirl">Girl</label>
           </div>
         </div>
         <div className={classes.formControl}>

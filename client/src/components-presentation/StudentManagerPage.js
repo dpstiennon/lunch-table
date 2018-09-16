@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import AddStudentForm from './AddStudentForm'
+import withStyles from '@material-ui/core/es/styles/withStyles'
 
 class StudentManagerPage extends Component {
 
@@ -8,22 +9,34 @@ class StudentManagerPage extends Component {
   }
 
   render() {
-    const {students, addStudent} = this.props
+    const {students, addStudent, classes} = this.props
     return <div className="container">
       <h3>Add a new student</h3>
       <AddStudentForm createStudent={addStudent}/>
-      {students.map(student => <div>
-        <span>{this.fullName(student)}</span>
-        <span>
-          <input type="radio"/>
-          <input type="radio"/>
-          <input type="radio"/>
-        </span>
-      </div>)}
+      <div>
+        {students.map(student => (
+        <div className={classes.studentRow}>
+          <span>{this.fullName(student)}</span>
+          <span>
+            <input type="radio"/>
+            <input type="radio"/>
+            <input type="radio"/>
+          </span>
+        </div>
+        ))}
+      </div>
     </div>
-
   }
-
 }
 
-export default StudentManagerPage
+const styles = (theme) => {
+  return {
+    studentRow: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap'
+    },
+  }
+}
+
+export default withStyles(styles)(StudentManagerPage)

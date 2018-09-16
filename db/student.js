@@ -13,17 +13,21 @@ module.exports = function(sequelize, DataTypes) {
       required: true,
     },
     boyOrGirl: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BOOLEAN,
       required: true
     },
-    peanuts: {
-      type: DataTypes.INTEGER,
-      default: 0
+    peanut: {
+      type: DataTypes.STRING,
+      required: true
     },
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      default: 5,
     }
   }, {timestamps: true});
   return Student;
