@@ -6,6 +6,7 @@ import RadioGroup from '@material-ui/core/RadioGroup'
 import Radio from '@material-ui/core/Radio'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { withStyles } from '@material-ui/core/styles'
+import MenuItem from '@material-ui/core/es/MenuItem/MenuItem'
 
 class AddStudentForm extends Component {
   constructor () {
@@ -13,16 +14,23 @@ class AddStudentForm extends Component {
     this.state = {
       peanut: 'peanut',
       birthDate: '',
+      grade: '5',
       firstName: '',
       lastName: '',
       boyOrGirl: false
     }
+
+    this.allowedGrades = [ 'K', '1', '2', '3', '4', '5', '6', '7', '8' ]
   }
 
   updateState = (key) => {
     return (e) => {
       this.setState({[key]: e.target.value})
     }
+  }
+
+  componentWillReceiveProps(newProps) {
+
   }
 
   updateSwitch = e => this.setState({boyOrGirl: e.target.checked})
@@ -87,6 +95,22 @@ class AddStudentForm extends Component {
               shrink: true,
             }}
           />
+        </div>
+        <div className={ classes.formControl}>
+          <TextField
+            select
+            label="Grade"
+            margin="normal"
+            value={this.state.grade}
+            onChange={this.updateState('grade')}
+            // InputProps={{
+            //   startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
+            // }}
+          >
+            {this.allowedGrades.map(g => (
+              <MenuItem key={g} value={g}> {g} </MenuItem>
+            ))}
+          </TextField>
         </div>
         <div className={classes.formControl}>
           <RadioGroup onChange={this.updateState('peanut')} value={peanut}>
