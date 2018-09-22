@@ -11,16 +11,23 @@ import MenuItem from '@material-ui/core/es/MenuItem/MenuItem'
 class AddStudentForm extends Component {
   constructor () {
     super()
-    this.state = {
+    this.allowedGrades = [ 'K', '1', '2', '3', '4', '5', '6', '7', '8' ]
+    this.state = {}
+  }
+
+  static getDerivedStateFromProps(nextProps){
+    if (nextProps.student) {
+      return {...nextProps.student, id: undefined}
+    }
+    return  {
       peanut: 'peanut',
       birthDate: '',
       grade: '5',
       firstName: '',
       lastName: '',
-      boyOrGirl: false
+      boyOrGirl: false,
+      id: undefined
     }
-
-    this.allowedGrades = [ 'K', '1', '2', '3', '4', '5', '6', '7', '8' ]
   }
 
   updateState = (key) => {
@@ -29,9 +36,6 @@ class AddStudentForm extends Component {
     }
   }
 
-  componentWillReceiveProps(newProps) {
-
-  }
 
   updateSwitch = e => this.setState({boyOrGirl: e.target.checked})
 
@@ -103,9 +107,6 @@ class AddStudentForm extends Component {
             margin="normal"
             value={this.state.grade}
             onChange={this.updateState('grade')}
-            // InputProps={{
-            //   startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
-            // }}
           >
             {this.allowedGrades.map(g => (
               <MenuItem key={g} value={g}> {g} </MenuItem>

@@ -6,6 +6,10 @@ import Button from '@material-ui/core/Button/Button'
 
 class StudentManagerPage extends Component {
 
+  state = {
+    editableStudent: null
+  }
+
   fullName(student) {
     return `${student.lastName}, ${student.firstName}`
   }
@@ -21,7 +25,9 @@ class StudentManagerPage extends Component {
   }
 
   editStudent = (student) => {
-
+    return () => {
+      this.setState({editableStudent: student})
+    }
   }
 
   formatSex = student => student.boyOrGirl ? 'F' : 'M'
@@ -30,7 +36,7 @@ class StudentManagerPage extends Component {
     const {students, addStudent, classes} = this.props
     return <div className="container">
       <h3>Add a new student</h3>
-      <AddStudentForm createStudent={addStudent} student={students[0]}/>
+      <AddStudentForm createStudent={addStudent} student={this.state.editableStudent}/>
 
       <div>
         <div className={ classes.studentRow }>
