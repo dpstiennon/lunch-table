@@ -68,11 +68,27 @@ router.get('/api/students', async (req, res) => {
   res.json(students || [])
 })
 
-router.get('/api/student/:id', async (req, res) => {
+router.get('/api/student/:id/name', async (req, res) => {
   const student = await model.student.findOne({
     id: req.params.id
   })
-  res.json(student)
+  res.json({
+    firstName: student.firstName,
+    lastName: student.lastName
+  })
+})
+
+router.post('/api/student/:id/login', async (req, res) => {
+  const student = await model.student.findOne({
+    id: req.params.id
+  })
+  if (student.birthdDate === req.body.birthDate) {
+    resp.json({token: 'abcdefg'})
+  }
+  res.json({
+    firstName: student.firstName,
+    lastName: student.lastName
+  })
 })
 
 module.exports = router;

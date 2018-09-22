@@ -11,7 +11,7 @@ class StudentPrefs extends Component {
   }
 
   getStudent = async () => {
-    const response = await fetch(`/api/student/${this.props.params.id}`)
+    const response = await fetch(`/api/student/${this.props.params.id}/name`)
     if (response.ok) {
       const student = await response.json()
       this.setState({student})
