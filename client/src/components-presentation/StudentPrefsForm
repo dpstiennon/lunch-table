@@ -1,0 +1,40 @@
+import React, { Component } from 'react'
+import TextField from '@material-ui/core/TextField/TextField'
+import Button from '@material-ui/core/Button/Button'
+
+class StudentPrefsForm extends Component {
+
+  state = {
+    birthDate: ''
+  }
+
+  login = () => {
+    this.props.login(this.state.birthDate)
+  }
+
+  updateDate = (e) => {
+    this.setState({birthDate: e.target.value})
+  }
+
+  render () {
+
+    return <div>
+      <form>
+        <TextField
+          onChange={this.updateDate}
+          value={this.state.birthDate}
+          label="Login with your birth date"
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <Button variant="contained" color="primary" type="submit">
+          Create
+        </Button>
+      </form>
+    </div>
+  }
+}
+
+export default StudentPrefsForm

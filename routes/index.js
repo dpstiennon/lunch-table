@@ -68,4 +68,11 @@ router.get('/api/students', async (req, res) => {
   res.json(students || [])
 })
 
+router.get('/api/student/:id', async (req, res) => {
+  const student = await model.student.findOne({
+    id: req.params.id
+  })
+  res.json(student)
+})
+
 module.exports = router;

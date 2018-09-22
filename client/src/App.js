@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import LoginContainer from './components/LoginContainer'
 import StudentManagerLink from './components-presentation/StudentManagerLink'
 import StudentManager from './components/StudentManager'
+import StudentPrefs from './components/StudentPrefs'
 // import 'bootstrap/dist/css/bootstrap-theme.css';
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
         <Route path="/" exact render={() =>
           <LoginContainer/>
         }/>
+        <Route path="/student/:id" render={(props) => <StudentPrefs {...props.match} />} />
         <Route path="/teacher" render={() => <StudentManagerLink /> } />
         <Route path="/teacher" exact render={() => <TeacherOverview/> }/>
         <Route path="/student-manager" exact render={() => <StudentManager/>} />
