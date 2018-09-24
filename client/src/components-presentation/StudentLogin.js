@@ -8,7 +8,8 @@ class StudentLogin extends Component {
     birthDate: ''
   }
 
-  login = () => {
+  login = (e) => {
+    e.preventDefault()
     this.props.login(this.state.birthDate)
   }
 
@@ -17,27 +18,31 @@ class StudentLogin extends Component {
   }
 
   render () {
-    const {firstName}  = this.props
+    const {firstName, error}  = this.props
     return <div>
       <div>
         <p>
           Welcome, {firstName}!
         </p>
         <p>Enter your birthdate to log in!</p>
+        {error &&
+          <p>
+            That doesn't look right!  Please try again
+          </p>
+        }
       </div>
-      <form>
+      <form onSubmit={this.login}>
         <TextField
           onChange={this.updateDate}
           value={this.state.birthDate}
           type="date"
-          label="Login with your birth date"
           margin="normal"
           InputLabelProps={{
             shrink: true,
           }}
         />
         <Button variant="contained" color="primary" type="submit">
-          Create
+          Login
         </Button>
       </form>
     </div>

@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
 import StudentLogin from '../components-presentation/StudentLogin'
-import StudentPrefsForm from '../components-presentation/StudentPrefsForm'
+import StudentFriendsForm from '../components-presentation/StudentFriendsForm'
 
 class StudentPrefs extends Component {
 
-  state = {}
+  state = {
+    error: false,
+    token: null,
+    student: null
+  }
 
   componentDidMount () {
     this.getStudent()
+    const token = sessionStorage.getItem('token')
+    if (token) {
+      this.setState({ token: token })
+    }
   }
 
   getStudent = async () => {
@@ -15,35 +23,48 @@ class StudentPrefs extends Component {
     if (response.ok) {
       const student = await response.json()
       this.setState({student})
-
     }
   }
 
+  getAllStudents = () => {
+    return [
+      'Bill',
+      'Frank'
+    ]
+  }
+
+  saveFriends = (friendsList) => {
+    console.log(friendsList)
+  }
+
   login = async (date) => {
-    const response = await fetch('/api/student/login', {
+    const response = await fetch(`/api/student/${this.props.params.id}/login`, {
       method: 'POST',
-      contentType: 'application/json',
-      body: {
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
         id: this.props.params.id,
         birthDate: date
-      }
+      })
     })
     if (response.ok) {
       const {token} = await response.json()
       sessionStorage.setItem('token', token)
+      this.setState({token})
 
+    } else {
+      this.setState({error: true})
     }
   }
 
   render () {
-    const {student} = this.state
-    if (student && sessionStorage.getItem('student-token')) {
-      return <StudentPrefsForm/>
-    }
-    else if (student) {
-      return <StudentLogin firstName={student.firstName} login={this.login}/>
-    }
-    else {
+    const {student, error, token} = this.state
+    if (student && token) {
+      return <StudentFriendsForm allStudents={this.getAllStudents()} saveFriends={this.saveFriends}/>
+    } else if (student) {
+      return <StudentLogin error={error} firstName={student.firstName} login={this.login}/>
+    } else {
       return <div>loading</div>
     }
   }

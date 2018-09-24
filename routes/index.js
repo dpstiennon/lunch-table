@@ -70,7 +70,7 @@ router.get('/api/students', async (req, res) => {
 
 router.get('/api/student/:id/name', async (req, res) => {
   const student = await model.student.findOne({
-    id: req.params.id
+    where: {id: req.params.id}
   })
   res.json({
     firstName: student.firstName,
@@ -82,13 +82,12 @@ router.post('/api/student/:id/login', async (req, res) => {
   const student = await model.student.findOne({
     id: req.params.id
   })
-  if (student.birthdDate === req.body.birthDate) {
-    resp.json({token: 'abcdefg'})
+  if (student.birthDate === req.body.birthDate) {
+    res.json({token: 'abcdefg'})
+  } else {
+    res.send(401)
   }
-  res.json({
-    firstName: student.firstName,
-    lastName: student.lastName
-  })
+
 })
 
 module.exports = router;
