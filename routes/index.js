@@ -63,6 +63,7 @@ router.post('/api/students', async (req, res) => {
   res.json(newStudent)
 })
 
+// TODO:  remove birthdate if not logged in
 router.get('/api/students', async (req, res) => {
   const students = await model.student.findAll()
   res.json(students || [])

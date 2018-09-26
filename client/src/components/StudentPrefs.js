@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import StudentLogin from '../components-presentation/StudentLogin'
 import StudentFriendsForm from '../components-presentation/StudentFriendsForm'
+import { getStudents } from '../state/actions'
+import {connect} from 'react-redux'
 
 class StudentPrefs extends Component {
 
@@ -12,6 +14,7 @@ class StudentPrefs extends Component {
 
   componentDidMount () {
     this.getStudent()
+    this.props.dispatch(getStudents)
     const token = sessionStorage.getItem('token')
     if (token) {
       this.setState({ token: token })
@@ -24,13 +27,6 @@ class StudentPrefs extends Component {
       const student = await response.json()
       this.setState({student})
     }
-  }
-
-  getAllStudents = () => {
-    return [
-      'Bill',
-      'Frank'
-    ]
   }
 
   saveFriends = (friendsList) => {
@@ -61,7 +57,7 @@ class StudentPrefs extends Component {
   render () {
     const {student, error, token} = this.state
     if (student && token) {
-      return <StudentFriendsForm allStudents={this.getAllStudents()} saveFriends={this.saveFriends}/>
+      return <StudentFriendsForm allStudents={this.props.students} saveFriends={this.saveFriends}/>
     } else if (student) {
       return <StudentLogin error={error} firstName={student.firstName} login={this.login}/>
     } else {
@@ -70,4 +66,8 @@ class StudentPrefs extends Component {
   }
 }
 
-export default StudentPrefs
+const mapStateToProps = state => ({
+    students: state.students
+  })
+
+export default connect(mapStateToProps)(StudentPrefs)

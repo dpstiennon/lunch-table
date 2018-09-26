@@ -27,16 +27,16 @@ class StudentFriendsForm extends Component {
       <h2>
         Enter the names of friends you would like to sit next to!
       </h2>
-      {friends.map((friend, index) => <div className={classes.friendRow}>
+      {friends.map((friend, index) => <div key={index} className={classes.friendRow}>
         <TextField
           className={classes.friendField}
           select
           value={friend}
           onChange={this.setFriend(index)}
         >
-          {allStudents.map(option => (
-            <MenuItem key={option} value={option}>
-              {option}
+          {allStudents.map(student => (
+            <MenuItem key={student.id} value={student.id}>
+              {student.firstName + ' ' + student.lastName}
             </MenuItem>
           ))}
         </TextField>
