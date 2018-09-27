@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const model = require('../db')
+const model = require('../models')
 
 // Do work here
 router.get('/', (req, res) => {
