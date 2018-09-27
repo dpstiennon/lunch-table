@@ -75,7 +75,8 @@ router.get('/api/student/:id/name', async (req, res) => {
   })
   res.json({
     firstName: student.firstName,
-    lastName: student.lastName
+    lastName: student.lastName,
+    id: student.id
   })
 })
 

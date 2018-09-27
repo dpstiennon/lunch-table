@@ -57,7 +57,10 @@ class StudentPrefs extends Component {
   render () {
     const {student, error, token} = this.state
     if (student && token) {
-      return <StudentFriendsForm allStudents={this.props.students} saveFriends={this.saveFriends}/>
+      return <StudentFriendsForm
+        allStudents={this.props.students}
+        thisStudent={student}
+        saveFriends={this.saveFriends}/>
     } else if (student) {
       return <StudentLogin error={error} firstName={student.firstName} login={this.login}/>
     } else {
