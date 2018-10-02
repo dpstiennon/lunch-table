@@ -46,7 +46,7 @@ class StudentManagerPage extends Component {
         <div key={student.id} className={classes.studentRow}>
           <span className={classes.studentData}>{this.fullName(student)}</span>
           <span className={classes.studentData}>{this.formatSex(student)}</span>
-          <span className={classes.studentData}>{student.birthDate}</span>
+          <span className={classes.studentData}>{student.lunchCode}</span>
           <span className={classes.studentData}>{this.calculateGrade(student)}</span>
           <span className={classes.studentData}>{student.peanut}</span>
           <Button variant="outlined" onClick={this.editStudent(student)}>Edit</Button>

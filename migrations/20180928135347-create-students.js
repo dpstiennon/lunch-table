@@ -14,7 +14,7 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING
       },
-      lunchcode: {
+      lunchCode: {
         type: Sequelize.STRING
       },
       boyOrGirl: {

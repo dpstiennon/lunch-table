@@ -5,16 +5,16 @@ import Button from '@material-ui/core/Button/Button'
 class StudentLogin extends Component {
 
   state = {
-    birthDate: ''
+    lunchCode: ''
   }
 
   login = (e) => {
     e.preventDefault()
-    this.props.login(this.state.birthDate)
+    this.props.login(this.state.lunchCode)
   }
 
   updateDate = (e) => {
-    this.setState({birthDate: e.target.value})
+    this.setState({lunchCode: e.target.value})
   }
 
   render () {
@@ -24,7 +24,7 @@ class StudentLogin extends Component {
         <p>
           Welcome, {firstName}!
         </p>
-        <p>Enter your birthdate to log in!</p>
+        <p>Enter your Lunch Code to log in!</p>
         {error &&
           <p>
             That doesn't look right!  Please try again
@@ -34,8 +34,7 @@ class StudentLogin extends Component {
       <form onSubmit={this.login}>
         <TextField
           onChange={this.updateDate}
-          value={this.state.birthDate}
-          type="date"
+          value={this.state.lunchCode}
           margin="normal"
           InputLabelProps={{
             shrink: true,

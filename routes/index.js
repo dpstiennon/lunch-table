@@ -16,25 +16,6 @@ router.get('/api/makeTeacher/:username/:first/:last', async (req, res) => {
   res.json(teacher)
 })
 
-router.get('/api/teacher/:id', (req, res) => {
-  res.json({
-    layouts: [
-      {
-        name: '5th grade class',
-        id: '123'
-      },
-      {
-        name: '6th grade class',
-        id: '456'
-      },
-      {
-        name: 'The ones who always misbehave',
-        id: '789'
-      },
-    ]
-  })
-})
-
 router.post('/api/login', async(req, res) => {
   let teacher = await model.teacher.findOne({
     where: {username: req.body.username}
@@ -59,18 +40,18 @@ router.post('/api/layouts', async (req, res) => {
 
 router.post('/api/students', async (req, res) => {
   const student = req.body
-  let newStudent = await model.student.create(student)
+  let newStudent = await model.students.create(student)
   res.json(newStudent)
 })
 
 // TODO:  remove birthdate if not logged in
 router.get('/api/students', async (req, res) => {
-  const students = await model.student.findAll()
+  const students = await model.students.findAll()
   res.json(students || [])
 })
 
 router.get('/api/student/:id/name', async (req, res) => {
-  const student = await model.student.findOne({
+  const student = await model.students.findOne({
     where: {id: req.params.id}
   })
   res.json({
@@ -81,10 +62,10 @@ router.get('/api/student/:id/name', async (req, res) => {
 })
 
 router.post('/api/student/:id/login', async (req, res) => {
-  const student = await model.student.findOne({
-    id: req.params.id
+  const student = await model.students.findOne({
+    where: {id: req.params.id}
   })
-  if (student.birthDate === req.body.birthDate) {
+  if (student.lunchCode === req.body.lunchCode) {
     res.json({token: 'abcdefg'})
   } else {
     res.send(401)

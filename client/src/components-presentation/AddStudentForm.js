@@ -21,7 +21,7 @@ class AddStudentForm extends Component {
     }
     return  {
       peanut: 'peanut',
-      birthDate: '',
+      lunchCode: '',
       grade: '5',
       firstName: '',
       lastName: '',
@@ -40,7 +40,7 @@ class AddStudentForm extends Component {
   updateSwitch = e => this.setState({boyOrGirl: e.target.checked})
 
   isFilled = (state) => {
-    return state.peanut && state.birthDate && state.firstName && state.lastName
+    return state.peanut && state.lunchCode && state.firstName && state.lastName
   }
 
   handleSubmit = (e) => {
@@ -53,7 +53,7 @@ class AddStudentForm extends Component {
 
   render () {
     const {classes} = this.props
-    const {birthDate, peanut, firstName, lastName, boyOrGirl} = this.state
+    const {lunchCode, peanut, firstName, lastName, boyOrGirl} = this.state
     return <form onSubmit={this.handleSubmit}>
       <div className={classes.newStudentForm}>
         <div className={classes.formControl}>
@@ -90,14 +90,10 @@ class AddStudentForm extends Component {
         </div>
         <div className={classes.formControl}>
           <TextField
-            onChange={this.updateState('birthDate')}
-            value={birthDate}
-            type="date"
-            label="Birth Date"
+            onChange={this.updateState('lunchCode')}
+            value={lunchCode}
+            label="Lunch Code"
             margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
           />
         </div>
         <div className={ classes.formControl}>

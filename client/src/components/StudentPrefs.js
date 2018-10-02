@@ -33,7 +33,7 @@ class StudentPrefs extends Component {
     console.log(friendsList)
   }
 
-  login = async (date) => {
+  login = async (lunchCode) => {
     const response = await fetch(`/api/student/${this.props.params.id}/login`, {
       method: 'POST',
       headers: {
@@ -41,7 +41,7 @@ class StudentPrefs extends Component {
       },
       body: JSON.stringify({
         id: this.props.params.id,
-        birthDate: date
+        lunchCode: lunchCode
       })
     })
     if (response.ok) {
