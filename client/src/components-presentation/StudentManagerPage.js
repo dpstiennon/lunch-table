@@ -3,6 +3,7 @@ import AddStudentForm from './AddStudentForm'
 import withStyles from '@material-ui/core/es/styles/withStyles'
 import moment from 'moment'
 import Button from '@material-ui/core/Button/Button'
+import { PeanutIcon } from './PeanutIcon'
 
 class StudentManagerPage extends Component {
 
@@ -48,7 +49,7 @@ class StudentManagerPage extends Component {
           <span className={classes.studentData}>{this.formatSex(student)}</span>
           <span className={classes.studentData}>{student.lunchCode}</span>
           <span className={classes.studentData}>{this.calculateGrade(student)}</span>
-          <span className={classes.studentData}>{student.peanut}</span>
+          <PeanutIcon peanut={student.peanut}/>
           <Button variant="outlined" onClick={this.editStudent(student)}>Edit</Button>
         </div>
         ))}

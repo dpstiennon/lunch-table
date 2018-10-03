@@ -15,6 +15,12 @@ class StudentFriendsForm extends Component {
     this.setState({friends})
   }
 
+  clearFriend = index => e => {
+    const {friends} = this.state
+    friends[index] = ''
+    this.setState({friends})
+  }
+
   saveFriends = (e) => {
     e.preventDefault()
     this.props.saveFriends(this.state.friends)
@@ -39,6 +45,9 @@ class StudentFriendsForm extends Component {
       <h2>Thanks, {thisStudent.firstName}</h2>
       <p> Enter the names of friends you would like to sit next to! </p>
       {friends.map((friend, index) => <div key={index} className={classes.formControl}>
+        <Button onClick={this.clearFriend(index)}>
+          X
+        </Button>
         <Select
           label="Grade"
           value={friend}
