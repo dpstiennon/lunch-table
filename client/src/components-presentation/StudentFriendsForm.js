@@ -45,35 +45,45 @@ class StudentFriendsForm extends Component {
       <h2>Thanks, {thisStudent.firstName}</h2>
       <p> Enter the names of friends you would like to sit next to! </p>
       {friends.map((friend, index) => <div key={index} className={classes.formControl}>
-        <Button onClick={this.clearFriend(index)}>
-          X
-        </Button>
-        <Select
-          label="Grade"
-          value={friend}
-          fullWidth
-          onChange={this.setFriend(index)}
-        >
+        <div className={classes.selectHolder}>
+          <Select
+            label="Grade"
+            value={friend}
+            fullWidth
+            onChange={this.setFriend(index)}
+          >
           {this.getStudentOptions(friend).map(student => (
             <MenuItem key={student.id} value={student.id}>
               {student.firstName + ' ' + student.lastName}
             </MenuItem>
           ))}
-        </Select>
+          </Select>
+        </div>
+        <Button onClick={this.clearFriend(index)}>
+          <span className={classes.xIcon} dangerouslySetInnerHTML={{ __html: '&#x2716'}}></span>
+        </Button>
       </div>)}
       <Button variant="contained" color="primary" type="submit">Submit</Button>
     </form>
   }
 }
 
-const styles = {
+const styles = (theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
   },
+  xIcon: {
+    color: theme.palette.secondary.main
+  },
   friendField: {
     minWidth: 200
+  },
+  selectHolder: {
+    width: 250,
+    margin: 10,
+    display: 'inline-block'
   },
   formControl: {
     flex: '1 1 40px',
@@ -84,6 +94,6 @@ const styles = {
     minWidth: 300
 
   },
-}
+})
 
 export default withStyles(styles)(StudentFriendsForm)
