@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   students.associate = function(models) {
-    // associations can be defined here
+    return students.hasMany(models.studentTokens)
   };
   return students;
 };

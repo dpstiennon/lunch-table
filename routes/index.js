@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const model = require('../models')
+const uuidv4 = require('uuid/v4');
 
 // Do work here
 router.get('/', (req, res) => {
@@ -66,7 +67,11 @@ router.post('/api/student/:id/login', async (req, res) => {
     where: {id: req.params.id}
   })
   if (student.lunchCode === req.body.lunchCode) {
-    res.json({token: 'abcdefg'})
+    const token = await model.studentTokens.create({
+      studentId: student.id,
+      token: uuidv4()
+    })
+    res.json({token: token.token})
   } else {
     res.send(401)
   }
