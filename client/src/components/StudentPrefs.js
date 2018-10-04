@@ -29,8 +29,29 @@ class StudentPrefs extends Component {
     }
   }
 
-  saveFriends = (friendsList) => {
+  saveFriends = async (friendsList) => {
     console.log(friendsList)
+    const response = await fetch(`/api/student/${this.props.params.id}/friends`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: this.state.token,
+        friendIds: friendsList
+      })
+    })
+    if(response.ok){
+
+    } else {
+      this.clearToken()
+      this.setState({error: 'It looks like your token expired!  Please log in again'})
+    }
+  }
+
+  clearToken = () => {
+    this.setState({token: null})
+    sessionStorage.removeItem('token')
   }
 
   login = async (lunchCode) => {
@@ -48,9 +69,8 @@ class StudentPrefs extends Component {
       const {token} = await response.json()
       sessionStorage.setItem('token', token)
       this.setState({token})
-
     } else {
-      this.setState({error: true})
+      this.setState({error: `That doesn't look right!  Please try again`})
     }
   }
 

@@ -59,7 +59,7 @@ class StudentFriendsForm extends Component {
           ))}
           </Select>
         </div>
-        <Button onClick={this.clearFriend(index)}>
+        <Button classes={{root: classes.xButton}} onClick={this.clearFriend(index)}>
           <span className={classes.xIcon} dangerouslySetInnerHTML={{ __html: '&#x2716'}}></span>
         </Button>
       </div>)}
@@ -72,11 +72,16 @@ const styles = (theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    '& $xButton': {
+      minWidth: 24,
+      padding: 8
+    }
   },
   xIcon: {
     color: theme.palette.secondary.main
   },
+  xButton: { },
   friendField: {
     minWidth: 200
   },

@@ -78,4 +78,31 @@ router.post('/api/student/:id/login', async (req, res) => {
 
 })
 
+router.post('/api/student/:id/friends', async (req, res) => {
+  const student = await model.students.findOne({
+    where: {id: req.params.id},
+    include: [{
+      model: model.studentTokens
+    }]
+  })
+  const submittedToken = req.body.token
+  const dbToken = student.studentTokens.find(t => t.token === submittedToken)
+  if (dbToken && !tokenExpired(dbToken)) {
+    createFriends(student)
+    res.send(200)
+  } else {
+    res.send(401)
+  }
+})
+
+function createFriends(student) {
+
+}
+
+function tokenExpired(token) {
+  const ticksInDay = 1000 * 60 * 60 * 24
+  const diff =  new Date() - token.createdAt
+  return diff > ticksInDay
+}
+
 module.exports = router;

@@ -27,7 +27,7 @@ class StudentLogin extends Component {
         <p>Enter your Lunch Code to log in!</p>
         {error &&
           <p>
-            That doesn't look right!  Please try again
+            {error}
           </p>
         }
       </div>
