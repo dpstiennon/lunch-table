@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   students.associate = function(models) {
-    return students.hasMany(models.studentTokens)
+     students.hasMany(models.friends)
+     return students.hasMany(models.studentTokens)
   };
   return students;
 };

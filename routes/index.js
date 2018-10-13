@@ -83,20 +83,31 @@ router.post('/api/student/:id/friends', async (req, res) => {
     where: {id: req.params.id},
     include: [{
       model: model.studentTokens
-    }]
+    },
+      {
+        model: model.friends
+      }]
   })
   const submittedToken = req.body.token
   const dbToken = student.studentTokens.find(t => t.token === submittedToken)
   if (dbToken && !tokenExpired(dbToken)) {
-    createFriends(student)
+    await createFriends(student, req.body.friendIds)
     res.send(200)
   } else {
     res.send(401)
   }
 })
 
-function createFriends(student) {
-
+async function createFriends(student, friendIds) {
+  student.removeFriends(student.friends)
+  await student.save()
+  let promises = friendIds.filter(Boolean).map((id) => {
+    return model.friends.create({
+      studentId: student.id,
+      friendId: id
+    })
+  })
+  return Promise.all(promises)
 }
 
 function tokenExpired(token) {
