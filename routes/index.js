@@ -84,18 +84,26 @@ router.post('/api/student/:id/friends', async (req, res) => {
     include: [{
       model: model.studentTokens
     },
-      {
-        model: model.friends
+    {
+      model: model.friends,
+      include: [{
+        model: model.students,
+        as: 'friend'
       }]
+    }]
   })
   const submittedToken = req.body.token
   const dbToken = student.studentTokens.find(t => t.token === submittedToken)
   if (dbToken && !tokenExpired(dbToken)) {
-    await createFriends(student, req.body.friendIds)
+    createFriends(student)
     res.send(200)
   } else {
     res.send(401)
   }
+})
+
+router.get('api/student/:id/friends', async (req, res) => {
+
 })
 
 async function createFriends(student, friendIds) {

@@ -13,7 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   friends.associate = function(models) {
     // associations can be defined here
     // return friends.hasOne(models.students)
-    return friends.belongsTo(models.students)
+    return Promise.all([
+      friends.belongsTo(models.students),
+      friends.belongsTo(models.students, {as: 'friend'})
+    ])
+
+
   };
   return friends;
 };
