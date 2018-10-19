@@ -45,33 +45,27 @@ router.post('/api/students', async (req, res) => {
   res.json(newStudent)
 })
 
-// TODO:  remove birthdate if not logged in
+// TODO:  remove lunchCode if not logged in
 router.get('/api/students', async (req, res) => {
   const students = await model.students.findAll()
   res.json(students || [])
 })
 
 router.get('/api/student/:id/name', async (req, res) => {
-  const student = await model.students.findOne({
-    where: {id: req.params.id}
-  })
-  res.json({
-    firstName: student.firstName,
-    lastName: student.lastName,
-    id: student.id
-  })
+  const student = await fetchStudent(req.params.id)
+  student.lunchCode = null
+  res.json(student)
 })
 
 router.post('/api/student/:id/login', async (req, res) => {
-  const student = await model.students.findOne({
-    where: {id: req.params.id}
-  })
+  const student = await fetchStudent(req.params.id)
   if (student.lunchCode === req.body.lunchCode) {
     const token = await model.studentTokens.create({
       studentId: student.id,
       token: uuidv4()
     })
-    res.json({token: token.token})
+    res.json({token: token.token,
+              student: student})
   } else {
     res.send(401)
   }
@@ -102,9 +96,23 @@ router.post('/api/student/:id/friends', async (req, res) => {
   }
 })
 
-router.get('api/student/:id/friends', async (req, res) => {
-
-})
+async function fetchStudent(studentId) {
+  const student = await model.students.findOne({
+    where: {id: studentId},
+    include: [{
+      model: model.studentTokens
+    },
+    {
+      model: model.friends,
+      include: [{
+        model: model.students,
+        as: 'friend'
+      }]
+    }]
+  })
+  student.friends.forEach(f => f.friend.lunchCode = null)
+  return student
+}
 
 async function createFriends(student, friendIds) {
   student.removeFriends(student.friends)

@@ -66,9 +66,9 @@ class StudentPrefs extends Component {
       })
     })
     if (response.ok) {
-      const {token} = await response.json()
+      const {token, student} = await response.json()
       sessionStorage.setItem('token', token)
-      this.setState({token})
+      this.setState({token, student})
     } else {
       this.setState({error: `That doesn't look right!  Please try again`})
     }

@@ -5,8 +5,18 @@ import withStyles from '@material-ui/core/es/styles/withStyles'
 import Select from '@material-ui/core/Select/Select'
 
 class StudentFriendsForm extends Component {
-  state = {
-    friends: ['', '', '', '', '']
+  static getDerivedStateFromProps(newProps) {
+    const state = {
+      friends: ['', '', '', '', '']
+    }
+    if (newProps.thisStudent.friends){
+      newProps.thisStudent.friends.forEach((f, i) => {
+        if(i < state.friends.length) {
+          state.friends[i] = f.friend.id
+        }
+      })
+    }
+    return state
   }
 
   setFriend = index => e => {
