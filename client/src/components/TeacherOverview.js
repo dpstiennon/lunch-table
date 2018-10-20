@@ -10,7 +10,7 @@ class TeacherOverview extends Component {
   }
 
   fetchLayouts() {
-    fetch(`/api/layouts?teacher_id=${this.props.teacher.id}`)
+    return fetch(`/api/layouts?teacher_id=${this.props.teacher.id}`)
       .then(resp => resp.json())
       .then(data => {
         this.props.dispatch(setLayouts(data))
@@ -18,7 +18,7 @@ class TeacherOverview extends Component {
   }
 
   createNewLayout(layoutName){
-    fetch('/api/layouts', {
+    return fetch('/api/layouts', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Modal from '@material-ui/core/Modal'
 import { withStyles } from '@material-ui/core/styles';
+import Modal from './Modal'
 
 const styles = {
   layout: {
@@ -34,22 +34,13 @@ class LayoutSelector extends Component {
 
   handleSubmit () {
     const newLayoutName = this.newLayoutName.value
-    this.setState({modalOpen: false})
-    this.props.createNewLayout(newLayoutName)
+    this.props.createNewLayout(newLayoutName).then(() => {
+      this.handleClose()
+    })
   }
 
   handleClose = () => {
     this.setState({modalOpen: false})
-  }
-
-  getModalStyle = () => {
-    const top = 50
-    const left = 50
-    return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-    }
   }
 
   render () {
@@ -69,11 +60,8 @@ class LayoutSelector extends Component {
           <h3 className={[classes.centeredText, 'dude'].join(' ')}>+</h3>
         </div>
       </div>
-      <Modal open={this.state.modalOpen}
-             style={this.getModalStyle()}
-             onClose={this.handleClose}
-             contentLabel="Add a new class layout"
-             className="new-layout-modal"
+      <Modal show={this.state.modalOpen}
+             dismiss={this.handleClose}
       >
         <div className="modal-content">
           <label htmlFor="name">Layout Name</label>

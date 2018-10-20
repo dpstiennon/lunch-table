@@ -17,6 +17,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to Tablr</h1>
         </header>
+        <div id="modal-root"/>
         <Route path="/" exact render={() =>
           <LoginContainer/>
         }/>
