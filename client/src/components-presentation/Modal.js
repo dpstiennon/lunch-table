@@ -21,24 +21,47 @@ class Modal extends React.Component {
   }
 
   render() {
-    const {dismiss, show, classes} = this.props
+    const {dismiss, show, classes, title} = this.props
     const modalBasic = (
       <div
         onClick={dismiss}
         className={classes.modalBackground}
       >
-        <section onClick={(e) => e.stopPropagation()} className={classes.modalWindow}>
-          <div className="Modal-content">
-            <a className="" role="button" onClick={dismiss}>&#x2297;</a>
+        <div onClick={(e) => e.stopPropagation()} className={classes.modalWindow}>
+          <section className={ classes.modalHeader }>
+            <div className={ classes.title }>{title}</div>
+
+            <a className={ classes.exOut } role="button" onClick={dismiss}>&#x2297;</a>
+          </section>
+          <section className="modalContent">
             {this.props.children}
-          </div>
-        </section>
+          </section>
+        </div>
       </div>)
     return show ? ReactDOM.createPortal(modalBasic, this.el) : null
   }
 }
 
 const styles = {
+  modalHeader: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    fontSize: '1.4em',
+    '& a': {
+      opacity: .6,
+      fontSize: '1.4em',
+      padding: '5px 15px 5px 15px',
+      cursor: 'pointer',
+      lineHeight: 1
+    },
+  },
+  title: {
+    alignSelf: 'flex-start',
+    flexGrow: 1,
+    padding: '5px 15px 5px 15px',
+    textAlign: 'left',
+    lineHeight: 2
+  },
   modalBackground: {
     backgroundColor: 'rgba(0,0,0,0.5)',
     position: 'fixed',
@@ -60,6 +83,7 @@ const styles = {
     overflow: 'hidden',
     position: 'relative',
     width: '60%',
+
   }
 }
 

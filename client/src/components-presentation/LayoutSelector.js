@@ -1,42 +1,30 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 import Modal from './Modal'
-
-const styles = {
-  layout: {
-    margin: '10px 10px 10px 10px',
-    padding: '0px 10px',
-    backgroundColor: '#4b9bd9',
-    display: 'block',
-    flex: '0 1 auto',
-    minWidth: 150,
-    height: 100,
-    borderRadius: '5px',
-    textAlign: 'center',
-    cursor: 'pointer'
-  },
-  centeredText: {
-    position: 'relative',
-    top: '50%',
-    transform: 'translateY(-50%)'
-  }
-}
 
 class LayoutSelector extends Component {
   constructor (props) {
     super(props)
-    this.state = {modalOpen: false}
+    this.state = {
+      modalOpen: false,
+      newLayoutName: ''
+    }
   }
 
   navigateAway (id) {
     alert(id)
   }
 
-  handleSubmit () {
-    const newLayoutName = this.newLayoutName.value
-    this.props.createNewLayout(newLayoutName).then(() => {
+  handleSubmit = () => {
+    this.props.createNewLayout(this.state.newLayoutName).then(() => {
       this.handleClose()
     })
+  }
+
+  layoutNameChange = (e) => {
+    this.setState({newLayoutName: e.target.value})
   }
 
   handleClose = () => {
@@ -45,6 +33,7 @@ class LayoutSelector extends Component {
 
   render () {
     const {teacherName, layouts, classes} = this.props
+    const {modalOpen, newLayoutName} = this.state
     return <div className="layouts">
       <div className="teacherHeader">
         <h1>{teacherName}</h1>
@@ -60,18 +49,57 @@ class LayoutSelector extends Component {
           <h3 className={[classes.centeredText, 'dude'].join(' ')}>+</h3>
         </div>
       </div>
-      <Modal show={this.state.modalOpen}
+      <Modal show={modalOpen}
              dismiss={this.handleClose}
+             title="New Layout"
       >
-        <div className="modal-content">
-          <label htmlFor="name">Layout Name</label>
-          <input name="name" type="text" ref={t => this.newLayoutName = t}/>
-          <button onClick={this.handleSubmit.bind(this)}>
+        <div className={classes.modalContent}>
+          <TextField
+            className={classes.modalElement}
+            label="Layout Name"
+            margin="normal"
+            value={newLayoutName}
+            onChange={this.layoutNameChange}
+          />
+          <Button
+            className={classes.modalElement}
+            variant="contained"
+            color="primary"
+            onClick={this.handleSubmit}
+          >
             Create new Layout
-          </button>
+          </Button>
         </div>
       </Modal>
     </div>
+  }
+}
+
+const styles = {
+  layout: {
+    margin: 10,
+    padding: '0px 10px',
+    backgroundColor: '#4b9bd9',
+    display: 'block',
+    flex: '0 1 auto',
+    minWidth: 150,
+    height: 100,
+    borderRadius: '5px',
+    textAlign: 'center',
+    cursor: 'pointer'
+  },
+  centeredText: {
+    position: 'relative',
+    top: '50%',
+    transform: 'translateY(-50%)'
+  },
+  modalContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  modalElement: {
+    marginBottom: 20
   }
 
 }
