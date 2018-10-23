@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -14,7 +15,7 @@ class LayoutSelector extends Component {
   }
 
   navigateAway (id) {
-    alert(id)
+    this.props.history.push(`/teacher/layout/${id}`)
   }
 
   handleSubmit = () => {
@@ -104,4 +105,4 @@ const styles = {
 
 }
 
-export default withStyles(styles)(LayoutSelector)
+export default withRouter(withStyles(styles)(LayoutSelector))

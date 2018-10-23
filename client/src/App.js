@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom'
 import './App.css';
-import Classroom from './components/Classroom'
+import TableLayout from './components/TableLayout'
 import TeacherOverview from './components/TeacherOverview'
 import 'bootstrap/dist/css/bootstrap.css';
 import LoginContainer from './components/LoginContainer'
@@ -25,19 +25,7 @@ class App extends Component {
         <Route path="/teacher" render={() => <StudentManagerLink /> } />
         <Route path="/teacher" exact render={() => <TeacherOverview/> }/>
         <Route path="/student-manager" exact render={() => <StudentManager/>} />
-        <Route path="/teacher/students" exact render={() =>
-          <Classroom />
-        }/>
-        <Route path="/teacher/tables" exact render={() =>
-          <div>
-            <h1>This page is where you can assign students to tables</h1>
-          </div>
-        }/>
-        <Route path="/student" exact render={() =>
-          <div>
-            <h1>This is the page where students input their preferences</h1>
-          </div>
-        }/>
+        <Route path="/teacher/layout/:id" exact render={(props) => <TableLayout {...props.match}/>} />
         <p className="App-intro">
           Created by David Stiennon
         </p>
