@@ -1,29 +1,13 @@
 import React, {Component} from 'react'
 import AddStudentForm from './AddStudentForm'
 import withStyles from '@material-ui/core/es/styles/withStyles'
-import moment from 'moment'
 import Button from '@material-ui/core/Button/Button'
 import { PeanutIcon } from './PeanutIcon'
 import { tableStyles } from '../jss/formStyles'
 
 class StudentManagerPage extends Component {
-
   state = {
     editableStudent: null
-  }
-
-  fullName(student) {
-    return `${student.lastName}, ${student.firstName}`
-  }
-
-  calculateGrade(student) {
-    const today = moment()
-    const cutoff = moment(new Date(today.year(), 6, 31))
-    const updateAt = moment(student.updatedAt)
-    const diffInMs = cutoff.diff(updateAt)
-    const diffYears = moment.duration(diffInMs).years()
-
-    return diffYears > 0 ? student.grade + diffYears : student.grade
   }
 
   editStudent = (student) => {
@@ -31,8 +15,6 @@ class StudentManagerPage extends Component {
       this.setState({editableStudent: student})
     }
   }
-
-  formatSex = student => student.boyOrGirl ? 'F' : 'M'
 
   render() {
     const {students, addStudent, classes} = this.props
@@ -46,10 +28,10 @@ class StudentManagerPage extends Component {
         </div>
         {students.map(student => (
         <div key={student.id} className={classes.studentRow}>
-          <span className={classes.studentData}>{this.fullName(student)}</span>
-          <span className={classes.studentData}>{this.formatSex(student)}</span>
+          <span className={classes.studentData}>{student.fullName()}</span>
+          <span className={classes.studentData}>{student.sex()}</span>
           <span className={classes.studentData}>{student.lunchCode}</span>
-          <span className={classes.studentData}>{this.calculateGrade(student)}</span>
+          <span className={classes.studentData}>{student.currentGrade()}</span>
           <PeanutIcon peanut={student.peanut}/>
           <Button variant="outlined" onClick={this.editStudent(student)}>Edit</Button>
         </div>

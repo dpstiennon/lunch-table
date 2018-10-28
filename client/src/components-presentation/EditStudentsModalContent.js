@@ -5,17 +5,20 @@ import { tableStyles } from '../jss/formStyles'
 import withStyles from '@material-ui/core/es/styles/withStyles'
 
 class EditStudentsModalContent extends Component {
+  fullName(student) {
+    return `${student.lastName}, ${student.firstName}`
+  }
+
   render () {
     const {students, layoutStudentIds, classes} = this.props
     return (
       <div>
         {students.map(student => (
           <div key={student.id} className={classes.studentRow}>
-            <span className={classes.studentData}>{this.fullName(student)}</span>
-            <span className={classes.studentData}>{this.formatSex(student)}</span>
-            <span className={classes.studentData}>{this.calculateGrade(student)}</span>
+            <span className={classes.studentData}>{student.fullName()}</span>
+            <span className={classes.studentData}>{student.sex()}</span>
+            <span className={classes.studentData}>{student.currentGrade()}</span>
             <PeanutIcon peanut={student.peanut}/>
-            <Button variant="outlined" onClick={this.editStudent(student)}>Edit</Button>
           </div>
         ))}
       </div>

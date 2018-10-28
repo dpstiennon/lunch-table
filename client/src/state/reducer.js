@@ -1,4 +1,5 @@
 import { SET_LAYOUTS, SET_STUDENTS, SET_TEACHER_LOGIN } from './constants'
+import Student from '../models/student'
 
 const defaultState = {
   teacher: {},
@@ -13,7 +14,7 @@ const reducer = (state = defaultState, action) => {
     case SET_LAYOUTS:
       return {...state, layouts: action.layouts}
     case SET_STUDENTS:
-      return {...state, students: action.students}
+      return {...state, students: action.students.map(s => new Student(s))}
     default:
       return state
   }

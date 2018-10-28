@@ -25,7 +25,7 @@ export class TableLayout extends Component {
         show={this.state.editStudents}
         dismiss={this.dismissModal('editStudents')}
         title="Select Students" >
-        <EditStudentsModalContent students={[]}/>
+        <EditStudentsModalContent students={this.props.students || []}/>
       </Modal>
     </div>
   }
