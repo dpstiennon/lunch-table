@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/es/styles/withStyles'
 import moment from 'moment'
 import Button from '@material-ui/core/Button/Button'
 import { PeanutIcon } from './PeanutIcon'
+import { tableStyles } from '../jss/formStyles'
 
 class StudentManagerPage extends Component {
 
@@ -58,19 +59,4 @@ class StudentManagerPage extends Component {
   }
 }
 
-const styles = (theme) => {
-  return {
-    studentRow: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      borderBottom: '1px solid grey',
-      borderColor: 'black'
-    },
-    studentData: {
-      flex: '1 1 100px'
-    }
-  }
-}
-
-export default withStyles(styles)(StudentManagerPage)
+export default withStyles(tableStyles)(StudentManagerPage)

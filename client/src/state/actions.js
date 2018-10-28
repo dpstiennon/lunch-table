@@ -11,3 +11,6 @@ export const getStudents = async (dispatch) => {
     dispatch(setStudents(data))
   }
 }
+
+
+
