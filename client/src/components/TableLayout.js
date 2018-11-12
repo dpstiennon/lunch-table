@@ -8,7 +8,9 @@ export class TableLayout extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      editStudents: true
+      editStudents: true,
+      switchClass: false,
+      switchLayout: false
     }
   }
   componentDidMount() {
@@ -27,6 +29,20 @@ export class TableLayout extends Component {
         title="Select Students" >
         <EditStudentsModalContent students={this.props.students || []}/>
       </Modal>
+      <Modal
+        show={this.state.switchClass}
+        dismiss={this.dismissModal('editStudents')}
+        title="Select Students" >
+        <EditStudentsModalContent students={this.props.students || []}/>
+      </Modal>
+      <Modal
+        show={this.state.switchLayout}
+        dismiss={this.dismissModal('editStudents')}
+        title="Select Students" >
+        <EditStudentsModalContent students={this.props.students || []}/>
+      </Modal>
+      <StudentsInClass/>
+      <TableManager/>
     </div>
   }
 }
